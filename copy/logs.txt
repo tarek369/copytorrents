@@ -1,0 +1,23 @@
+2022/11/25 21:07:14 ====== STARTING (====== 
+2022/11/25 21:07:14 command = python3 copy.py ' + downloaded_file
+2022/11/25 21:07:14 Source episode directory     = ' + source
+2022/11/25 21:09:05 ====== STARTING (====== 
+2022/11/25 21:09:05 command = python3 copy.py  y
+2022/11/25 21:09:05 Source episode directory     =  /downloads/torrents/rutorrent/completed/y
+2022/11/25 21:57:53 ====== STARTING (====== 
+2022/11/25 21:57:53 command = python3 copy.py  y
+2022/11/25 21:57:53 Source episode directory     =  /downloads/torrents/rutorrent/completed/y
+2022/11/25 21:57:53 File name y
+2022/11/25 21:57:53 |       Copying
+|   /downloads/torrents/rutorrent/completed/y /mnt/unionfs/Media/Ramadan/y/y
+2022/11/25 21:57:53 Copied succsufully
+2022/11/25 22:08:56 ====== STARTING (====== 
+2022/11/25 22:08:56 command = python3 copy.py  /var/folders/5w/6t00bmj93nz92ltg96vq4ypw0000gp/T/go-build3641666232/b001/exe/copy
+2022/11/25 22:08:56 Source episode directory     =  /downloads/torrents/rutorrent/completed//var/folders/5w/6t00bmj93nz92ltg96vq4ypw0000gp/T/go-build3641666232/b001/exe/copy
+2022/11/25 22:09:57 ====== STARTING (====== 
+2022/11/25 22:09:57 command = python3 copy.py  Hakonamara.S01.EP3.fjief.mkv
+2022/11/25 22:09:57 Source episode directory     =  /downloads/torrents/rutorrent/completed/Hakonamara.S01.EP3.fjief.mkv
+2022/11/25 22:09:57 File name Hakonamara
+2022/11/25 22:09:57 |       Copying
+|   /downloads/torrents/rutorrent/completed/Hakonamara.S01.EP3.fjief.mkv /mnt/unionfs/Media/Ramadan/Hakonamara/Hakonamara.S01.E3.fjief.mkv
+2022/11/25 22:09:57 Copied succsufully

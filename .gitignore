@@ -1,0 +1,7 @@
+/.DS_Store
+/Migration
+/config
+/config.json
+/live
+/main.go
+/rclone.conf
