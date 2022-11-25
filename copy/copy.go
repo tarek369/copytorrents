@@ -34,7 +34,7 @@ func main() {
 	source = source + downloaded_file
 	file, err := os.OpenFile("/config/log/copy.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0775)
 	if err != nil {
-		fmt.Println("Fucking error", err)
+		fmt.Println("Fucking error!", err)
 		log.Fatal(err)
 	}
 
