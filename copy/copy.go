@@ -40,8 +40,8 @@ func main() {
 
 	log.SetOutput(file)
 	log.Println("====== STARTING (====== ")
-	log.Println("command = python3 copy.py ", downloaded_file)
-	log.Println("Source episode directory     = ", source)
+	log.Println("command = ./copy ", downloaded_file)
+	log.Println("Source episode directory = ", source)
 
 	switch label {
 	case "tvfullarab":
@@ -82,7 +82,7 @@ func main() {
 func copy(downloaded_file, dest string) (bool, string) {
 
 	to := filepath.Join(dest, downloaded_file)
-	log.Println("|       Copying\n|  ", downloaded_file, to)
+	log.Println("Copying\n ", downloaded_file, to)
 	err := cp.Copy(source, to)
 	if err != nil {
 		fmt.Println(err)
@@ -140,7 +140,7 @@ func clean(episode_full_path string) {
 	dest_dir := filepath.Join(destination_folder, epname)
 	dest_path := filepath.Join(dest_dir, episode_pure)
 
-	log.Println("|       Copying\n|  ", episode_full_path, dest_path)
+	log.Println("Copying\n ", episode_full_path, dest_path)
 
 	_ = os.Mkdir(dest_dir, 0775)
 	err := cp.Copy(episode_full_path, dest_path)
