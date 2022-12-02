@@ -45,16 +45,16 @@ func main() {
 
 	switch label {
 	case "tvfullarab":
-		_, to := copy(downloaded_file, label)
+		_, to := copy(downloaded_file, destination_folder)
 		chown(to)
 	case "tveng":
-		_, to := copy(destination_folder_tveng, label)
+		_, to := copy(downloaded_file, destination_folder_tveng)
 		chown(to)
 	case "animetv":
-		_, to := copy(destination_folder_anime, label)
+		_, to := copy(downloaded_file, destination_folder_anime)
 		chown(to)
 	case "arabmovie":
-		_, to := copy(destination_folder_movies, label)
+		_, to := copy(downloaded_file, destination_folder_movies)
 		chown(to)
 	case "tv":
 		files, _ := ioutil.ReadDir(source)
@@ -79,9 +79,9 @@ func main() {
 
 }
 
-func copy(downloaded_file, label string) (bool, string) {
+func copy(downloaded_file, dest string) (bool, string) {
 
-	to := filepath.Join(destination_folder, downloaded_file)
+	to := filepath.Join(dest, downloaded_file)
 	log.Println("|       Copying\n|  ", downloaded_file, to)
 	err := cp.Copy(source, to)
 	if err != nil {
@@ -102,6 +102,7 @@ func chown(to string) {
 		log.Println(err)
 	} else {
 		log.Println("File ownership changed successfully")
+		log.Println(to)
 	}
 }
 
