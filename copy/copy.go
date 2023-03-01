@@ -112,8 +112,8 @@ func clean(episode_full_path string) {
 	episode_file := filepath.Base(episode_full_path)
 	parse_results, _ := PTN.Parse(episode_file)
 	epname := strings.Replace(parse_results.Title, " ", ".", -1)
-	epname = strings.Split(epname, ".R22")[0]
-	epname = strings.Split(epname, ".R022")[0]
+	epname = strings.Split(epname, ".R23")[0]
+	epname = strings.Split(epname, ".R023")[0]
 	epname = strings.Split(epname, ".S1")[0]
 	epname = strings.Split(epname, ".S0")[0]
 	epname = strings.Split(epname, "_S1")[0]
