@@ -26,6 +26,7 @@ jobs:
           go install github.com/middelink/go-parse-torrent-name@latest
           go install github.com/otiai10/copy@latest
           go install golang.org/x/exp/slices@latest
+          go mod init
       - name: Build
         run: go build -v ./...
 
