@@ -1,4 +1,4 @@
-module tarek.com/copy
+module github.com/tarek369/copytorrents
 
 go 1.20
 
