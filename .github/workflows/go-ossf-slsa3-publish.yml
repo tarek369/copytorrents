@@ -16,6 +16,7 @@ on:
   workflow_dispatch:
   release:
     types: [created]
+    private-repository: true
 
 permissions: read-all
 
@@ -28,7 +29,7 @@ jobs:
     permissions:
       id-token: write # To sign.
       contents: write # To upload release assets.
-      actions: read   # To read workflow path.
+      actions: read # To read workflow path.
     uses: slsa-framework/slsa-github-generator/.github/workflows/builder_go_slsa3.yml@v1.4.0
     with:
       go-version: 1.17
