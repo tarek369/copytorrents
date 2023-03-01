@@ -22,7 +22,7 @@ jobs:
           go-version: 1.19
       - name: Install dependencies
         run: |
-          go install github.com/middelink/go-parse-torrent-name/v0
+          go install github.com/middelink/go-parse-torrent-name/v0@latest
           go install github.com/otiai10/copy/@latest
           go install golang.org/x/exp/slices/@latest
       - name: Build
