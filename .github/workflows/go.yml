@@ -26,6 +26,7 @@ jobs:
           go get .
           go get github.com/middelink/go-parse-torrent-name
           go get github.com/otiai10/copy
+          got get golang.org/x/exp/slices
       - name: Build
         run: go build -v ./...
 
