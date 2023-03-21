@@ -130,6 +130,8 @@ func clean(episode_full_path string) {
 	episode_pure = strings.Replace(episode_pure, ".SHAHID.WEB-DL.AAC2.0.H.264.BY.RoMaNTiCPoET", "", -1)
 	episode_pure = strings.Replace(episode_pure, "SHAHID", "", -1)
 	episode_pure = strings.Replace(episode_pure, "H.264", "", -1)
+	episode_pure = strings.Replace(episode_pure, "H264", "", -1)
+	episode_pure = strings.Replace(episode_pure, "R23", "", -1)
 	episode_pure = strings.Replace(episode_pure, "BY.RoMaNTiCPoET", "", -1)
 	episode_pure = strings.Replace(episode_pure, " ", "", -1)
 	episode_pure = strings.Replace(episode_pure, "..", ".", -1)
