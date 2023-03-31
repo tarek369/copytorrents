@@ -40,7 +40,7 @@ func main() {
 
 	log.SetOutput(file)
 	log.Println("====== STARTING (====== ")
-	log.Println("command = ./copy ", downloaded_file)
+	log.Println("command = ./copy ", downloaded_file, label)
 	log.Println("Source episode directory = ", source)
 
 	switch label {
@@ -139,19 +139,124 @@ func clean(episode_full_path string) {
 	episode_pure = strings.Replace(episode_pure, "..", ".", -1)
 	episode_pure = strings.Replace(episode_pure, "._", "", -1)
 	log.Println("File name", epname)
-	dest_dir := filepath.Join(destination_folder, epname)
-	dest_path := filepath.Join(dest_dir, episode_pure)
 
-	log.Println("Copying\n ", episode_full_path, dest_path)
-
-	_ = os.Mkdir(dest_dir, 0775)
-	err := cp.Copy(episode_full_path, dest_path)
+	dirPath := destination_folder // Change this to the path of the directory you want to search
+	closestMatch := ""
+	closestDistance := -1
+	err := filepath.Walk(dirPath, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if info.IsDir() && path != dirPath {
+			dirName := filepath.Base(path)
+			if strings.Contains(dirName, epname) {
+				closestMatch = dirName
+				closestDistance = 0
+				return filepath.SkipDir
+			}
+			distance := levenshteinDistance(dirName, epname)
+			if closestDistance == -1 || distance < closestDistance {
+				closestMatch = dirName
+				closestDistance = distance
+			}
+		}
+		return nil
+	})
 	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println("Folder copied successfully")
-		log.Println("Copied succsufully")
+		log.Println("Error reading directory:", err)
+		return
 	}
-	chown(dest_path)
+	if closestDistance < 7 {
+		log.Println("Closest match:", closestMatch)
+		log.Println("Closest distance:", closestDistance)
+		closestMatch = filepath.Join(destination_folder, closestMatch, episode_pure)
+		log.Println("Closest match full dir:", closestMatch)
+		// full dir with edited episode name
+		err := cp.Copy(episode_full_path, closestMatch)
+		log.Println("copy full :", episode_full_path, closestMatch)
+		if err != nil {
+			fmt.Println(err)
+		} else {
+			log.Println("Copied succsufully")
+		}
 
+		chown(closestMatch)
+	} else {
+		log.Println("Closest match:", closestMatch)
+		log.Println("Closest distance:", closestDistance)
+		newDir := filepath.Join(destination_folder, epname, episode_pure)
+		err := os.Mkdir(newDir, 0775)
+		if err != nil {
+			log.Println("Error creating directory:", err)
+			return
+		}
+		log.Println("Created new directory:", newDir)
+
+		errr := cp.Copy(episode_full_path, newDir)
+		log.Println("copy full :", episode_full_path, closestMatch)
+		if errr != nil {
+			fmt.Println(err)
+		} else {
+			log.Println("Copied succsufully")
+		}
+
+		chown(newDir)
+	}
+
+	// dest_dir := filepath.Join(destination_folder, epname)
+	// dest_path := filepath.Join(dest_dir, episode_pure)
+
+	// log.Println("Copying\n ", episode_full_path, dest_path)
+
+	// _ = os.Mkdir(dest_dir, 0775)
+	// err := cp.Copy(episode_full_path, dest_path)
+	// if err != nil {
+	// 	fmt.Println(err)
+	// } else {
+	// 	fmt.Println("Folder copied successfully")
+	// 	log.Println("Copied succsufully")
+	// }
+	//chown(dest_path)
+
+}
+func levenshteinDistance(s, t string) int {
+	m := len(s)
+	n := len(t)
+	if m == 0 {
+		return n
+	}
+	if n == 0 {
+		return m
+	}
+	if s == t {
+		return 0
+	}
+	d := make([][]int, m+1)
+	for i := range d {
+		d[i] = make([]int, n+1)
+	}
+	for i := 0; i <= m; i++ {
+		d[i][0] = i
+	}
+	for j := 0; j <= n; j++ {
+		d[0][j] = j
+	}
+	for j := 1; j <= n; j++ {
+		for i := 1; i <= m; i++ {
+			if s[i-1] == t[j-1] {
+				d[i][j] = d[i-1][j-1]
+			} else {
+				d[i][j] = min(d[i-1][j]+1, min(d[i][j-1]+1, d[i-1][j-1]+1))
+			}
+		}
+	}
+	return d[m][n]
+}
+
+// Returns the minimum of two integers
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
 }
